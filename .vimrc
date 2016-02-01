@@ -19,8 +19,8 @@ call vundle#begin()
   Plugin 'scrooloose/nerdtree'              " file browser
   Plugin 'leafgarland/typescript-vim'       " Typescript syntax highlighting
   Plugin 'vim-scripts/IndentConsistencyCop'
-  Plugin 'ternjs/tern_for_vim'
-  Plugin 'Valloric/YouCompleteMe'
+" Plugin 'ternjs/tern_for_vim'
+" Plugin 'Valloric/YouCompleteMe'
 " Plugin 'tpope/vim-rails'                  " jump to definitions following Rails conventions
 " Plugin 'tpope/vim-cucumber'               " jump to Cucumber step definitions
 " Plugin 'tpope/vim-eunuch'                 " sugar for UNIX shell commands
