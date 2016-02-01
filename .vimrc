@@ -62,8 +62,7 @@ set nofoldenable
 set clipboard=unnamed
 set guioptions=e
 set hidden
-set statusline=%f
-set laststatus=2  " Always have a status line, so buffergator doesn't cause the text to blip upwards
+set laststatus=2  " Always have a status line, even when there is only one buffer in the window, for consistency
 set nostartofline
 set shiftwidth=2
 set tabstop=2
@@ -189,6 +188,8 @@ hi Number ctermfg=DarkMagenta
 hi Conditional ctermfg=Red
 hi Comment ctermfg=DarkGrey
 hi LineNr ctermfg=Black
+hi StatusLine ctermfg=DarkGreen ctermbg=Black
+hi StatusLineNC ctermfg=Black ctermbg=White
 
 hi clear SignColumn
 hi GitGutterAdd ctermfg=green guifg=#00cc00;
@@ -203,6 +204,24 @@ hi SyntasticWarningSign guifg=#CFCF00; guibg=#777700;
 function! SyntaxAtCursor()
   return synIDattr(synID(line("."),col("."),1),"name")
 endfunction
+
+
+if has('statusline')
+  set statusline=
+  set statusline+=%-2.2n\                      " buffer number
+  set statusline+=%f\                          " file name
+  set statusline+=%#Conceal#                   " set highlighting
+  set statusline+=%h%m%r%w\                    " flags
+  set statusline+=%{strlen(&ft)?&ft:'none'},   " file type
+  set statusline+=%{(&fenc==\"\"?&enc:&fenc)}, " encoding
+  set statusline+=%{((exists(\"+bomb\")\ &&\ &bomb)?\"B,\":\"\")} " BOM
+  set statusline+=%{&fileformat},              " file format
+  set statusline+=%{&spelllang}                " language of spelling checker
+  set statusline+=%=                           " ident to the right
+" set statusline+=%{SyntaxAtCursor()}          " syntax highlight group under cursor
+  set statusline+=0x%-8B\                      " character code under cursor
+  set statusline+=%-7.(%l,%c%V%)\ %<%P         " cursor position/offset
+endif
 
 
 " automatically reload vimrc when it's saved
