@@ -6,21 +6,21 @@ call vundle#begin()
   Plugin 'gmarik/Vundle.vim'
 
   Plugin 'kien/ctrlp.vim'                   " fuzzy match file/buffer switching
+  Plugin 'pangloss/vim-javascript'          " JavaScript syntax highlighting
+  Plugin 'mxw/vim-jsx'                      " JSX syntax highlighting (depends on pangloss/vim-javascript)
+  Plugin 'roryokane/detectindent'           " Automatically detect file indentation and change settings to match
+  Plugin 'editorconfig/editorconfig-vim'    " automatic project-specific editor configuration (tabs/spaces etc).
   Plugin 'tpope/vim-fugitive'               " awesome Git control wrapper
   Plugin 'tpope/vim-unimpaired'             " handy paired mappings
   Plugin 'tpope/vim-commentary'             " gc, gcc, gcap  for commenting/uncommenting code
   Plugin 'vim-scripts/Align'                " text alignment
   Plugin 'airblade/vim-gitgutter'           " mark changed lines in editor
   Plugin 'scrooloose/syntastic'             " syntax checker
-  Plugin 'editorconfig/editorconfig-vim'    " automatic project-specific editor configuration (tabs/spaces etc).
   Plugin 'scrooloose/nerdtree'              " file browser
+  Plugin 'leafgarland/typescript-vim'       " Typescript syntax highlighting
+  Plugin 'vim-scripts/IndentConsistencyCop'
   Plugin 'ternjs/tern_for_vim'
   Plugin 'Valloric/YouCompleteMe'
-  Plugin 'leafgarland/typescript-vim'       " Typescript syntax highlighting which is also great for plain JavaScript
-  Plugin 'pangloss/vim-javascript'          " JavaScript syntax highlighting
-  Plugin 'mxw/vim-jsx'                      " JSX syntax highlighting (depends on pangloss/vim-javascript)
-  Plugin 'vim-scripts/IndentConsistencyCop'
-  Plugin 'ciaranm/detectindent'
 " Plugin 'tpope/vim-rails'                  " jump to definitions following Rails conventions
 " Plugin 'tpope/vim-cucumber'               " jump to Cucumber step definitions
 " Plugin 'tpope/vim-eunuch'                 " sugar for UNIX shell commands
@@ -30,12 +30,10 @@ call vundle#begin()
 " Plugin 'SirVer/ultisnips'                 " engine for quickly inserting snippets with smart placeholders
 " Plugin 'honza/vim-snippets'               " actual big list of snippets for ultisnips
 " Plugin 'bling/vim-airline'                " nicely formatted bottom bar (filename, mode, filetype, etc.)
-" Plugin 'jeetsukumaran/vim-buffergator'    " buffer manager
 " Plugin 'kana/vim-textobj-user'            " text objects for fast coding (selecting things)
 " Plugin 'mattn/emmet-vim'                  " fancy abbreviations for expanding HTML elements like ul>li*
 " Plugin 'nelstrom/vim-textobj-rubyblock'   " A custom text object for selecting ruby blocks.
 " Plugin 'othree/html5-syntax.vim'          " Ctrl-X, Ctrl-O for omnicomplete HTML stuff
-" Plugin 'rizzatti/dash.vim'                " Lookup documentation in Dash app
 " Plugin 'ck3g/vim-change-hash-syntax'      " changing the Ruby hash syntax :from => 1.8 to: 1.9
 " Plugin 'tpope/vim-surround'               " accelerator for adding and modifying text in terms of surrounding elements
 " Plugin 'tpope/vim-repeat'                 " make the dot key repeat things like tpope/vim-surround
@@ -69,6 +67,8 @@ set laststatus=2  " Always have a status line, so buffergator doesn't cause the 
 set nostartofline
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
+set expandtab
 set hlsearch
 set backspace=indent,eol,start
 nohls
@@ -166,23 +166,6 @@ set wildignore+=node_modules,trash,tmp,cache,coverage,vendor,cassettes,build
 " Where to look for ctags files
 " set tags=./tags,tags,/Users/allan.tokuda/.rvm/gems/ruby-2.0.0-p451/gems/tags,/Users/allan.tokuda/.rvm/gems/ruby-2.0.0-p451/bundler/gems/tags
 set tags=./tags,tags,~/src/*/tags
-
-" Set font
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
-  elseif has("gui_win32")
-    set guifont=Consolas:h11:cANSI
-  elseif has("gui_macvim")
-    " Found using tip online: run ":set gfn=*" and this brings up a dialog of options; then run "set gfn" to see current setting
-    set guifont=Consolas:h16
-  endif
-
-  "let g:airline_powerline_fonts = 1
-  let g:airline_left_sep=''
-  let g:airline_right_sep=''
-  let g:airline_enable_branch = 0
-endif
 
 " Treat hyphens as part of a file when editing DOM stuff. Would like it to be
 " smart about HAML, but HAML is a combination of HTML and Ruby, and I think
