@@ -177,27 +177,55 @@ au VimEnter * DetectIndent
 " Load vim-jsx "javascript.jsx" syntax even for files without JSX extension
 let g:jsx_ext_required=0
 
-hi PreProc ctermfg=LightBlue
-hi Statement ctermfg=LightBlue
-hi Special ctermfg=Yellow
-hi Noise ctermfg=Yellow
-hi Identifier ctermfg=Cyan
-hi Type ctermfg=Green
-hi String ctermfg=Magenta
-hi Number ctermfg=DarkMagenta
-hi Conditional ctermfg=Red
-hi Comment ctermfg=DarkGrey
-hi LineNr ctermfg=Black
-hi StatusLine ctermfg=DarkGreen ctermbg=Black
-hi StatusLineNC ctermfg=Black ctermbg=White
 
-hi clear SignColumn
-hi GitGutterAdd ctermfg=green guifg=#00cc00;
-hi GitGutterChange ctermfg=yellow guifg=yellow
-hi GitGutterDelete ctermfg=red guifg=red
-hi GitGutterChangeDelete ctermfg=yellow guifg=yellow
-hi SyntasticErrorSign guibg=red guifg=#ff9999;
-hi SyntasticWarningSign guifg=#CFCF00; guibg=#777700;
+" HIGHLIGHT COLORS
+
+  " These cause code complexity and deserve attention, so they should be red
+  hi Label ctermfg=Red
+  hi Conditional ctermfg=Red
+  hi Exception ctermfg=Red
+
+  " These need to be exactly right and also deserve attention, so they should be yellow/orange
+  hi Special ctermfg=Yellow
+  hi Operator ctermfg=Yellow
+
+  " These are content-related, closest to the user story and business rules
+  hi String ctermfg=Magenta
+  hi Constant ctermfg=Magenta
+  hi Number ctermfg=DarkMagenta
+
+  " These relate to code structure and declarations
+  hi Identifier ctermfg=Cyan
+  hi Type ctermfg=Green
+
+  " These usually need little attention so they should be blue
+  hi PreProc ctermfg=LightBlue
+  hi Statement ctermfg=LightBlue
+  hi Noise ctermfg=Blue
+
+  " By default links to Statement
+  hi link jsStorageClass PreProc
+
+  " Items needing the least attention needed of all
+  hi Comment ctermfg=DarkGrey
+  hi StatusLine ctermfg=DarkGreen ctermbg=Black
+  hi StatusLineNC ctermfg=Black ctermbg=White
+  hi LineNr ctermfg=Black
+
+  hi diffRemoved ctermfg=Red
+  hi diffAdded ctermfg=DarkGreen
+  hi diffFile ctermfg=Blue
+  hi diffSubname ctermfg=DarkGrey
+  hi diffLine ctermfg=DarkGrey
+
+
+  hi clear SignColumn
+  hi GitGutterAdd ctermfg=green guifg=#00cc00;
+  hi GitGutterChange ctermfg=yellow guifg=yellow
+  hi GitGutterDelete ctermfg=red guifg=red
+  hi GitGutterChangeDelete ctermfg=yellow guifg=yellow
+  hi SyntasticErrorSign guibg=red guifg=#ff9999;
+  hi SyntasticWarningSign guifg=#CFCF00; guibg=#777700;
 
 
 " Usage -- echo SyntaxAtCursor()
@@ -218,7 +246,7 @@ if has('statusline')
   set statusline+=%{&fileformat},              " file format
   set statusline+=%{&spelllang}                " language of spelling checker
   set statusline+=%=                           " ident to the right
-" set statusline+=%{SyntaxAtCursor()}          " syntax highlight group under cursor
+  set statusline+=%{SyntaxAtCursor()}          " syntax highlight group under cursor
   set statusline+=0x%-8B\                      " character code under cursor
   set statusline+=%-7.(%l,%c%V%)\ %<%P         " cursor position/offset
 endif
