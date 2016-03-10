@@ -13,12 +13,15 @@ call vundle#begin()
   Plugin 'tpope/vim-fugitive'               " awesome Git control wrapper
   Plugin 'tpope/vim-unimpaired'             " handy paired mappings
   Plugin 'tpope/vim-commentary'             " gc, gcc, gcap  for commenting/uncommenting code
+  Plugin 'tpope/vim-rails'
   Plugin 'vim-scripts/Align'                " text alignment
   Plugin 'airblade/vim-gitgutter'           " mark changed lines in editor
   Plugin 'scrooloose/syntastic'             " syntax checker
   Plugin 'scrooloose/nerdtree'              " file browser
   Plugin 'leafgarland/typescript-vim'       " Typescript syntax highlighting
   Plugin 'vim-scripts/IndentConsistencyCop'
+  Plugin 'kchmck/vim-coffee-script'
+  Plugin 'ngmy/vim-rubocop'
 " Plugin 'ternjs/tern_for_vim'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'tpope/vim-rails'                  " jump to definitions following Rails conventions
@@ -102,10 +105,8 @@ imap <D-X> expect();<C-O>h
 " Then add them back in again with "*" to setup vim search regex \<word boundaries\>
 map <Leader>gr g*N:silent Ggrep -w <C-R>/<CR>$N*N:copen<CR><C-w><C-p>
 
-map <Leader>gr g*N:set grepprg=~/.local/bin/rbgitgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR><C-w><C-p>:redraw!<CR>
-map <Leader>gj g*N:set grepprg=~/.local/bin/jsgitgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR><C-w><C-p>:redraw!<CR>
-map <Leader>gri g*N:set grepprg=~/.local/bin/rbgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR>/def <CR><CR>:cclose<CR>:redraw!<CR>
-map <Leader>grh g*N:set grepprg=~/.local/bin/rbgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR><C-w><C-p>:redraw!<CR>
+map <Leader>gr g*N:set grepprg=~/bin/rbgitgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR><C-w><C-p>:redraw!<CR>
+map <Leader>gj g*N:set grepprg=~/bin/jsgitgrep<CR>:silent grep! -w <C-R>/<CR>*N:copen<CR><C-w><C-p>:redraw!<CR>
 
 vmap <Leader>gr "ly/<C-R>l<CR>N:silent Ggrep -w "<C-R>l"<CR>
 
@@ -134,7 +135,6 @@ let g:syntastic_echo_current_error=1
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_ruby_checkers = ['mri']
-"let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors = [
 \   'proprietary attribute'
@@ -172,7 +172,7 @@ set tags=./tags,tags,~/src/*/tags
 au! BufNewFile,BufRead *.css,*.scss,*.sass,*.html,*.txt setlocal isk+=-
 au! BufNewFile,BufRead *.rb,*.js,*.coffee,*.haml,*.sql setlocal isk-=-
 
-au VimEnter * DetectIndent
+au VimEnter,BufNewFile,BufRead * DetectIndent
 
 " Load vim-jsx "javascript.jsx" syntax even for files without JSX extension
 let g:jsx_ext_required=0
@@ -194,13 +194,15 @@ let g:jsx_ext_required=0
   hi Constant ctermfg=Magenta
   hi Number ctermfg=DarkMagenta
 
+  hi Search ctermbg=Yellow ctermfg=Black
+
   " These relate to code structure and declarations
   hi Identifier ctermfg=Cyan
   hi Type ctermfg=Green
 
   " These usually need little attention so they should be blue
-  hi PreProc ctermfg=LightBlue
-  hi Statement ctermfg=LightBlue
+  hi PreProc ctermfg=Blue
+  hi Statement ctermfg=Blue
   hi Noise ctermfg=Blue
 
   " By default links to Statement

@@ -1,0 +1,12 @@
+[user]
+	name = Allan Tokuda
+#	email = (set per project)
+[push]
+	default = current
+[core]
+	excludesfile = ~/.gitignore-global
+[pager]
+# https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight
+	diff = diff-highlight | less
+	log = diff-highlight | less
+	show = diff-highlight | less
